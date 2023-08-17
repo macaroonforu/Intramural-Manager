@@ -23,5 +23,5 @@ Sport Crud that will be created with Express, MongoDB, and Pug
 
 
 16-Aug-2023
--To Do: 
-- Write home.js
+1. Wrote home.js
+2. Tried to do a responsive nav bar for layout.pug
