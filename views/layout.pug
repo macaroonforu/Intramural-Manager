@@ -1,7 +1,37 @@
 doctype html
-html
+html(lang='en')
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(rel='stylesheet', href='/stylesheets/layout.css')
   body
+    nav
+        div(class="topnav" id="myTopnav")
+            a(href="/home" class="title") Intramural Manager
+            a(href="/home" class="active") Home 
+            a(href="/home/coaches") All Coaches
+            a(href="/home/players") All Players
+            a(href="/home/teams") All Teams
+            a(href="/home/sports") All Sports
+            a(href="/home/coach/create") Add a Coach
+            a(href="/home/sport/create") Add a Player
+            a(href="/home/team/create") Add a Team
+            a(href="/home/sport/create") Add a Sport
+            a(href="javascript:void(0);" class="icon" onclick="myFunction()")
+                i(class="fa fa-bars")
+    
+
+  
+      
     block content
+
+    script(src="/javascripts/layout.js")
+
+
+
+
+    
+
+

@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 !{title}
+  p Welcome to #[em Intramural Manager], a very basic Express website. You can add leagues, coaches, players, and sports.
+
+  p On file, the Intramural Manager is recording the following statistics: 
+
+  ul
+    li #[strong Teams:] !{team_count}
+    li #[strong Sports:] !{sport_count}
+    li #[strong Players:] !{player_count}
+    li #[strong Coaches:] !{coach_count}
