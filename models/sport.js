@@ -8,5 +8,11 @@ const sportSchema = new Schema({
 sportSchema.virtual("url").get(function(){
     return `/home/sport/${this._id}`; 
 })
+sportSchema.virtual("update_url").get(function(){
+    return `/home/sport/${this._id}/update`; 
+})
+sportSchema.virtual("delete_url").get(function(){
+    return `/home/sport/${this._id}/delete`; 
+})
 
 module.exports = mongoose.model("Sport", sportSchema); 

@@ -29,7 +29,17 @@ exports.playerList = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific player.
 exports.playerDetail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: player detail: ${req.params.id}`);
+  const player = await Player.findById(req.params.id).populate("team").exec(); 
+  const teams = []
+  for(let i =0;  i < player.team.length; i++){
+    const team = await Team.findById(player.team[i]).exec(); 
+    teams[i] = team; 
+  }
+  res.render("playerDetail", {
+    title: "Player Profile", 
+    player: player, 
+    player_teams: teams, 
+  }); 
 });
 
 // Display player create form on GET.

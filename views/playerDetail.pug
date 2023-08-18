@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1 !{title}
+  h2 name: !{player.name}
+  h3 email:  
+    a(href=player.mail) !{player.email}
+
+  h3 !{player.name}'s Teams 
+
+  ul
+    each team in player_teams
+      li
+          p !{team.sport.name} Team:   
+            a(href=team.url) #{team.name} 
+          
+    else
+      li This player does not belong to any teams. 
+
+    a(href=player.update_url) Update this player
+    
+    a(href=player.delete_url) Delete this player   

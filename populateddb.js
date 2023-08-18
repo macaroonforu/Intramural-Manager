@@ -114,10 +114,10 @@ console.log(
   }
   
   async function createPlayers() {
-    console.log("Adding authors");
+    console.log("Adding Players");
     await Promise.all([
-      playerCreate(0, teams[0], "Claire", "Dimitriuc", "November 12 2003", "macaroonforu@gmail.com"),
-      playerCreate(1, teams[1], "Jennifer", "Lopex", "November 12 2005", "bob@gmail.com"),
-      playerCreate(2, teams[2], "Justin", "Bieber", "November 12 2009", "justin@gmail.com"),
+      playerCreate(0, [teams[0]], "Claire", "Dimitriuc", "November 12 2003", "macaroonforu@gmail.com"),
+      playerCreate(1, [teams[1]], "Jennifer", "Lopex", "November 12 2005", "bob@gmail.com"),
+      playerCreate(2, [teams[2]], "Justin", "Bieber", "November 12 2009", "justin@gmail.com"),
     ]);
   }

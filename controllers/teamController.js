@@ -1,4 +1,7 @@
-const Team = require("../models/team");
+const Player = require("../models/player");
+const Team = require("../models/team"); 
+const Sport = require("../models/sport"); 
+const Coach = require("../models/coach"); 
 const asyncHandler = require("express-async-handler");
 
 // Display list of all teams.
@@ -9,7 +12,20 @@ exports.teamList = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific team.
 exports.teamDetail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: team detail: ${req.params.id}`);
+  const[team, allPlayersUnderTeam] = await Promise.all(
+    [Team.findById(req.params.id).populate("coach").exec(), 
+    Player.find({team: req.params.id}).exec()]
+  ); 
+  if(team === null){
+    const err = new Error("Team not found"); 
+    err.status = 404; 
+    return next(err); 
+  }
+  res.render("teamDetail",{
+    title: "Team Profile", 
+    team: team, 
+    team_players: allPlayersUnderTeam,
+  }); 
 });
 
 // Display team create form on GET.

@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema; 
 
 const playerSchema = new Schema({
-    team: { type:  Schema.Types.ObjectId, ref: "Team", required: true }, 
+    team: [{type:  Schema.Types.ObjectId, ref: "Team", required: true}], 
     first_name: { type: String, required: true, maxLength: 100}, 
     family_name: { type: String, required: true, maxLength: 100}, 
     date_of_birth: { type: Date }, 
@@ -12,11 +12,20 @@ const playerSchema = new Schema({
 playerSchema.virtual("name").get(function (){
     let fullname =""; 
     if ( this.first_name && this.family_name){
-        fullname = `${this.family_name}, ${this.first_name}`; 
+        fullname = `${this.first_name}, ${this.family_name}`; 
     }
     return fullname; 
 })
 playerSchema.virtual("url").get(function(){
     return `/home/player/${this._id}`; 
+})
+playerSchema.virtual("mail").get(function(){
+    return `mailto:${this.email}`; 
+})
+playerSchema.virtual("update_url").get(function(){
+    return `/home/player/${this._id}/update`; 
+})
+playerSchema.virtual("delete_url").get(function(){
+    return `/home/player/${this._id}/delete`; 
 })
 module.exports = mongoose.model("Player", playerSchema); 

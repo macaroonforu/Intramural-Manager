@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 !{title}
+  h2 Sport: !{sport.name}
+  h3 !{sport.name}'s Teams 
+
+  ul
+    each team in sport_teams
+      li
+        p Team:   
+            a(href=team.url) #{team.name} 
+    else
+      li No teams are participating in this sport.   
+
+    
+    a(href=sport.update_url) Update this sport
+    
+    a(href=sport.delete_url) Delete this sport
