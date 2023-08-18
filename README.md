@@ -29,3 +29,7 @@ Sport Crud that will be created with Express, MongoDB, and Pug
 17-Aug-2023
 1. Wrote views to display lists of coaches, teams, players, and sports. 
 2. modified script because I realized I was missing a name property for team db object. 
+
+18-Aug-2023
+1. Wrote team detail, coach detail, player detail and sport detail views/logic
+2. Put links in to add/delete all objects in respective detail pages. 
