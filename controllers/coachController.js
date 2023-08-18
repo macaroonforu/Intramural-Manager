@@ -1,10 +1,10 @@
 const Coach = require("../models/coach");
 const asyncHandler = require("express-async-handler");
 
-
 // Display list of all coachs.
 exports.coachList = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: coach list");
+  const allCoaches = await Coach.find().exec();
+  res.render("coachList", {title: "All Coaches", coach_list: allCoaches}); 
 });
 
 // Display detail page for a specific coach.

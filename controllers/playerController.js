@@ -23,7 +23,8 @@ exports.index = asyncHandler(async (req, res, next) => {
 
 // Display list of all players.
 exports.playerList = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: player list");
+  const allPlayers = await Player.find().exec();
+  res.render("playerList", {title: "All Players", player_list: allPlayers}); 
 });
 
 // Display detail page for a specific player.

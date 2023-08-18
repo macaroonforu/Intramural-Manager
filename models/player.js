@@ -9,7 +9,6 @@ const playerSchema = new Schema({
     date_of_birth: { type: Date }, 
     email: { type: String, required: true}, 
 }); 
-
 playerSchema.virtual("name").get(function (){
     let fullname =""; 
     if ( this.first_name && this.family_name){
@@ -17,5 +16,7 @@ playerSchema.virtual("name").get(function (){
     }
     return fullname; 
 })
-
+playerSchema.virtual("url").get(function(){
+    return `/home/player/${this._id}`; 
+})
 module.exports = mongoose.model("Player", playerSchema); 

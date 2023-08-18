@@ -3,7 +3,8 @@ const asyncHandler = require("express-async-handler");
 
 // Display list of all sports.
 exports.sportList = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: sport list");
+  const allSports = await Sport.find({}, "name").exec(); 
+  res.render("sportList", {title:"All Sports", sport_list:allSports}); 
 });
 
 // Display detail page for a specific sport.

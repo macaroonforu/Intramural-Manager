@@ -3,7 +3,8 @@ const asyncHandler = require("express-async-handler");
 
 // Display list of all teams.
 exports.teamList = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: team list");
+  const allTeams = await Team.find({}, "name sport size coach").exec(); 
+  res.render("teamList", {title: "All Teams", team_list: allTeams})
 });
 
 // Display detail page for a specific team.

@@ -71,8 +71,9 @@ console.log(
     console.log(`Added Player: ${first_name} ${family_name}`);
   }
   
-  async function teamCreate(index, sport, coach, size) {
+  async function teamCreate(index, name, sport, coach, size) {
     const teamdetail = {
+      name: name, 
       sport: sport,
       coach: coach,
       size: size 
@@ -80,7 +81,7 @@ console.log(
     const team = new Team(teamdetail);
     await team.save();
     teams[index] = team;
-    console.log(`Added Team: ${size}`);
+    console.log(`Added Team: ${name}`);
   }
   
   async function createSports() {
@@ -104,11 +105,11 @@ console.log(
   }
   
   async function createTeams() {
-    console.log("Adding Books");
+    console.log("Adding Teams");
     await Promise.all([
-      teamCreate(0,sports[0], coaches[0], 10), 
-      teamCreate(1,sports[1], coaches[2], 9),
-      teamCreate(2,sports[2], coaches[4], 9),
+      teamCreate(0,"The oober goobers", sports[0], coaches[0], 10), 
+      teamCreate(1,"The jelly bellies", sports[1], coaches[2], 9),
+      teamCreate(2,"The Phiphiphos", sports[2], coaches[4], 9),
     ]);
   }
   
