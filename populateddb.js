@@ -46,8 +46,8 @@ console.log(
     console.log(`Added sport: ${name}`);
   }
   
-  async function coachCreate(index, first_name, family_name, email) {
-    const coachdetail = { first_name: first_name, family_name: family_name, email: email};
+  async function coachCreate(index, first_name, family_name, email, summary) {
+    const coachdetail = { first_name: first_name, family_name: family_name, email: email, summary: summary};
   
     const coach = new Coach(coachdetail);
   
@@ -96,11 +96,11 @@ console.log(
   async function createCoaches() {
     console.log("Adding Coaches");
     await Promise.all([
-      coachCreate(0, "Patrick", "Rothfuss", "patrichRothfuss@gmail.com"),
-      coachCreate(1, "Ben", "Bova", "Benbova@yahoo.com"),
-      coachCreate(2, "Isaac", "Asimov", "isaacasimov@gmail.com"),
-      coachCreate(3, "Bob", "Billings", "benbillings@yahoo.com"),
-      coachCreate(4, "Jim", "Jones", "jimjones@gmail.com"),
+      coachCreate(0, "Patrick", "Rothfuss", "patrichRothfuss@gmail.com", "Hello! I lvoe to coach :D"),
+      coachCreate(1, "Ben", "Bova", "Benbova@yahoo.com", "Coaching is great!"),
+      coachCreate(2, "Isaac", "Asimov", "isaacasimov@gmail.com", "Im a great coach"),
+      coachCreate(3, "Bob", "Billings", "benbillings@yahoo.com", "Love my players"),
+      coachCreate(4, "Jim", "Jones", "jimjones@gmail.com", "Very cool job."),
     ]);
   }
   
@@ -116,8 +116,8 @@ console.log(
   async function createPlayers() {
     console.log("Adding Players");
     await Promise.all([
-      playerCreate(0, [teams[0]], "Claire", "Dimitriuc", "November 12 2003", "macaroonforu@gmail.com"),
-      playerCreate(1, [teams[1]], "Jennifer", "Lopex", "November 12 2005", "bob@gmail.com"),
-      playerCreate(2, [teams[2]], "Justin", "Bieber", "November 12 2009", "justin@gmail.com"),
+      playerCreate(0, [teams[0]], "Claire", "Dimitriuc", "2003-12-11", "macaroonforu@gmail.com"),
+      playerCreate(1, [teams[1]], "Jennifer", "Lopex", "2005-12-11", "bob@gmail.com"),
+      playerCreate(2, [teams[2]], "Justin", "Bieber", "2009-12-11", "justin@gmail.com"),
     ]);
   }

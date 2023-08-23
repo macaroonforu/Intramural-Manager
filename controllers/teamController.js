@@ -3,6 +3,7 @@ const Team = require("../models/team");
 const Sport = require("../models/sport"); 
 const Coach = require("../models/coach"); 
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
 
 // Display list of all teams.
 exports.teamList = asyncHandler(async (req, res, next) => {
@@ -30,13 +31,56 @@ exports.teamDetail = asyncHandler(async (req, res, next) => {
 
 // Display team create form on GET.
 exports.teamCreateGET = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: team create GET");
+    const[allCoaches, allSports] = await Promise.all([
+      Coach.find().exec(), 
+      Sport.find().exec(),
+    ]); 
+  res.render("team_form", {
+    title: "Add a Team", 
+    coaches: allCoaches, 
+    sports: allSports, 
+  }); 
 });
 
 // Handle team create on POST.
-exports.teamCreatePOST = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: team create POST");
-});
+exports.teamCreatePOST = [
+  //Just really sanitizing the data: validation was not necessary 
+  body("name").trim().escape(),
+  body("coach").trim().escape(), 
+  body("size").trim().escape(), 
+  body("sport").trim().escape(), 
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req); 
+    const team = new Team({
+      name: req.body.name, 
+      coach: req.body.coach, 
+      sport: req.body.sport, 
+      size: req.body.size, 
+    }); 
+
+    if(!errors.isEmpty()){
+      const[allCoaches, allSports] = await Promise.all([
+        Coach.find().exec(), 
+        Sport.find().exec(),
+      ]); 
+      res.render("team_form", {
+        title: "Invalid Submission Attempt", 
+        coaches: allCoaches, 
+        sports: allSports, 
+        team: team, 
+        errors:errors.array(), 
+      }); 
+    }
+    else{
+      await team.save(); 
+      res.redirect(team.url); 
+    }
+  }), 
+  
+  
+
+]; 
 
 // Display team delete form on GET.
 exports.teamDeleteGET = asyncHandler(async (req, res, next) => {

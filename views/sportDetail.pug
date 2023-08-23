@@ -3,7 +3,7 @@ extends layout
 block content
   h1 !{title}
   h2 Sport: !{sport.name}
-  h3 !{sport.name}'s Teams 
+  h3 All !{sport.name} Teams
 
   ul
     each team in sport_teams
@@ -14,6 +14,6 @@ block content
       li No teams are participating in this sport.   
 
     
-    a(href=sport.update_url) Update this sport
-    
-    a(href=sport.delete_url) Delete this sport
+  a(href=sport.update_url) Update this sport
+  br  
+  a(href=sport.delete_url) Delete this sport

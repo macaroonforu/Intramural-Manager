@@ -33,3 +33,7 @@ Sport Crud that will be created with Express, MongoDB, and Pug
 18-Aug-2023
 1. Wrote team detail, coach detail, player detail and sport detail views/logic
 2. Put links in to add/delete all objects in respective detail pages. 
+
+22-Aug-2023
+1. npm install express-validator
+2. Added forms to add coaches, players, sports, and teams

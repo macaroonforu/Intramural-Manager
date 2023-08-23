@@ -3,10 +3,10 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema; 
 
 const playerSchema = new Schema({
-    team: [{type:  Schema.Types.ObjectId, ref: "Team", required: true}], 
-    first_name: { type: String, required: true, maxLength: 100}, 
-    family_name: { type: String, required: true, maxLength: 100}, 
-    date_of_birth: { type: Date }, 
+    team: [{type:  Schema.Types.ObjectId, ref: "Team"}], 
+    first_name: { type: String, required: true, maxLength: 20}, 
+    family_name: { type: String, required: true, maxLength: 20}, 
+    date_of_birth: { type: Date, required: true}, 
     email: { type: String, required: true}, 
 }); 
 playerSchema.virtual("name").get(function (){

@@ -5,6 +5,7 @@ block content
   h2 name: !{coach.name}
   h3 email:  
     a(href=coach.mail) !{coach.email}
+  h4 Summary: !{coach.summary}
 
   h3 !{coach.name}'s Teams 
 
@@ -18,5 +19,5 @@ block content
       li This coach has no teams.   
 
   a(href=coach.update_url) Update this coach
-    
+  br    
   a(href=coach.delete_url) Delete this coach

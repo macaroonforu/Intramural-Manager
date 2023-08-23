@@ -5,6 +5,7 @@ block content
   h2 name: !{player.name}
   h3 email:  
     a(href=player.mail) !{player.email}
+  h4 data of birth: !{player.date_of_birth}
 
   h3 !{player.name}'s Teams 
 
@@ -17,6 +18,6 @@ block content
     else
       li This player does not belong to any teams. 
 
-    a(href=player.update_url) Update this player
-    
-    a(href=player.delete_url) Delete this player   
+  a(href=player.update_url) Update this player
+  br  
+  a(href=player.delete_url) Delete this player   

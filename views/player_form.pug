@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1 !{title}
+
+  form(method='POST' action='')
+    label(for='first_name') First Name: 
+    input(type='text' required placeholder='First name' name='first_name' value=(undefined===player?'':player.first_name))
+    label(for='family_name') Last Name: 
+    input(type='text'  required placeholder='Last name' name='family_name' value=(undefined===player?'':player.family_name))
+    label(for='date_of_birth') Date of Birth: 
+    input(type='date'  required  name='date_of_birth' value=(undefined===player?'':player.date_of_birth))
+    label(for='email') Email: 
+    input(type='text'  required  name='email' value=(undefined===player?'':player.email))
+
+    label Teams:
+      for team in teams 
+        div(style='display: inline; padding-right:10px;')
+            input(type='checkbox', name='team', id=team._id, value=team._id, checked=team.checked )
+            label(for=team._id) #{team.name}
+       
+          
+   
+    button(type='submit') Submit 
+  
+  if errors
+   ul
+    for error in errors
+     li!= error.msg
+

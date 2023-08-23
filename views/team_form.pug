@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 !{title}
+
+  form(method='POST' action='')
+    label(for='name') Name: 
+    input(type='text' required placeholder='team name' name='name' value=(undefined===team?'':team.name))
+    label(for='sport') Sport: 
+    select(type='select'  required placeholder='sport name' name='sport' value=(undefined===team?'':team.sport))
+      for sport in sports
+        option(value=sport._id) #{sport.name}
+    label(for='coach') Coach: 
+    select(type='select'  required  name='coach' value=(undefined===team?'':team.coach))
+      for coach in coaches
+        option(value=coach._id) #{coach.name}
+    label(for='size') Maximum Team Size: 
+    input(type='number' max="20" min="4" required  name='size' value=(undefined===team?'':team.size))
+    button(type='submit') Submit 
+  
+  if errors
+   ul
+    for error in errors
+     li!= error.msg
+
