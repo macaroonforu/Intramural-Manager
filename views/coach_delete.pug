@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 #{title}: #{coach.name}
+
+  if coach_teams.length
+   
+
+    p #[strong Find a new coach for these teams before attempting to remove this coach.]
+
+    div
+      h4 Teams under #{coach.name}
+      ul 
+        each team in coach_teams
+            li
+                a(href=team.url) #{team.name}
+            
+
+  else
+    p Do you really want to delete this Coach?
+
+    form(method='POST' action='')
+
+        input(type='hidden',name='coachid', required='true', value=coach._id )
+        button(type='submit') Delete

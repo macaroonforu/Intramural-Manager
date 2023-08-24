@@ -14,7 +14,7 @@ exports.teamList = asyncHandler(async (req, res, next) => {
 // Display detail page for a specific team.
 exports.teamDetail = asyncHandler(async (req, res, next) => {
   const[team, allPlayersUnderTeam] = await Promise.all(
-    [Team.findById(req.params.id).populate("coach").exec(), 
+    [Team.findById(req.params.id).populate("coach sport").exec(), 
     Player.find({team: req.params.id}).exec()]
   ); 
   if(team === null){

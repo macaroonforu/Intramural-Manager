@@ -67,12 +67,38 @@ exports.coachCreatePOST = [
 
 // Display coach delete form on GET.
 exports.coachDeleteGET = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: coach delete GET");
+  const [coach, allTeamsUnderCoach] = await Promise.all([
+    Coach.findById(req.params.id).exec(), 
+    Team.find({ coach: req.params.id }, "name").populate("sport coach name").exec(), 
+  ]); 
+  if(coach===null){ //When the coach deletes, redirect them to the list of coaches
+    res.redirect("/home/coaches"); 
+  }
+  res.render("coach_delete", {
+    title: "Remove A Coach", 
+    coach: coach, 
+    coach_teams: allTeamsUnderCoach, 
+  }); 
 });
 
 // Handle coach delete on POST.
 exports.coachDeletePOST = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: coach delete POST");
+  const [coach, allTeamsUnderCoach] = await Promise.all([
+    Coach.findById(req.params.id).exec(), 
+    Team.find({ coach: req.params.id }, {}).exec(), 
+  ]); 
+  if (allTeamsUnderCoach.length > 0){
+    res.render("coach_delete", {
+      title: "Removal Failed", 
+      coach: coach, 
+      coach_teams: allTeamsUnderCoach, 
+    }); 
+    return; 
+  }
+  else{
+    await Coach.findByIdAndRemove(req.body.coachid); 
+    res.redirect("/home/coaches"); 
+  } 
 });
 
 // Display coach update form on GET.

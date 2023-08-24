@@ -1,15 +1,15 @@
 extends layout
 
 block content
-  h1 !{title}
+  h1 Team profile for the !{team.name}
   h2 Coach: !{team.coach.name}
-  h3 !{team.name}'s Players 
+  h2 Sport: !{team.sport.name}
+  h3 Players 
 
   ul
     each player in team_players
-      li
-        p Player:   
-            a(href=player.url) #{player.name} 
+      li  
+          a(href=player.url) #{player.name} 
     else
       li No players are participating on this team.   
 

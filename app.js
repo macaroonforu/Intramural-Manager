@@ -14,6 +14,7 @@ const app = express();
 ///Connect to MongoDB
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
+
 const mongoDB = "";  
 
 main().catch((err) => console.log(err));
