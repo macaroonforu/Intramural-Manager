@@ -37,3 +37,6 @@ Sport Crud that will be created with Express, MongoDB, and Pug
 22-Aug-2023
 1. npm install express-validator
 2. Added forms to add coaches, players, sports, and teams
+
+23-Aug-2023
+1. Added form to delete a coach
