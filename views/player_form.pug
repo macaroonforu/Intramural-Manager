@@ -14,7 +14,7 @@ block content
     input(type='text'  required  name='email' value=(undefined===player?'':player.email))
 
     label Teams:
-      for team in teams 
+      for team in teams
         div(style='display: inline; padding-right:10px;')
             input(type='checkbox', name='team', id=team._id, value=team._id, checked=team.checked )
             label(for=team._id) #{team.name}

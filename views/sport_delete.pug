@@ -2,3 +2,21 @@ extends layout
 
 block content
   h1 !{title}
+
+  if sport_teams.length 
+
+    p #[strong Remove these teams before attempting to delete this sport (!{sport.name})]
+
+    div 
+      h4 Teams that play #{sport.name}
+      ul 
+        each team in sport_teams 
+          li 
+            a(href=team.url) #{team.name}
+
+  else 
+    p Do you really want to delete this sport? (!{sport.name})
+
+    form(method='POST' action='')
+      input(type='hidden', name='sportid', required='true', value=sport._id)
+      button(type='submit') Delete 

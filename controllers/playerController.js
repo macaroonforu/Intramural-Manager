@@ -108,20 +108,104 @@ exports.playerCreatePOST = [
 
 // Display player delete form on GET.
 exports.playerDeleteGET = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: player delete GET");
+  const player = await Player.findById(req.params.id); 
+  if (player === null){
+    res.redirect("/home/players"); 
+  }
+  res.render("player_delete", {
+    title: "Remove a Player", 
+    player: player,
+  }); 
 });
 
 // Handle player delete on POST.
 exports.playerDeletePOST = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: player delete POST");
+  await Player.findByIdAndRemove(req.body.playerid); 
+  res.redirect("/home/players"); 
 });
 
 // Display player update form on GET.
 exports.playerUpdateGET = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: player update GET");
+  const [player, allTeams]= await Promise.all([
+    Player.findById(req.params.id).populate("team").exec(), 
+    Team.find().exec(), 
+  ]); 
+
+  if (player === null) {
+    const err = new Error("Player not found");
+    err.status = 404;
+    return next(err);
+  }
+  for(const team of allTeams){
+    for (const playerTeam of player.team){
+      if(team._id.toString() === playerTeam._id.toString()){
+        team.checked="true"; 
+      }
+    } 
+  }
+  res.render("player_form", {
+    title: "Update Player", 
+    player: player, 
+    teams: allTeams, 
+  }); 
 });
 
 // Handle player update on POST.
-exports.playerUpdatePOST = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: player update POST");
-});
+exports.playerUpdatePOST = [
+  (req, res, next) => {
+    if(!(req.body.team instanceof Array)){
+      if(typeof req.body.team === "undefined"){
+        req.body.team = []; 
+      }
+      else{
+        req.body.team = new Array(req.body.team); 
+      }
+    }
+    next(); 
+  },
+
+  //Validate and sanitize the form data
+  body("email").trim().isLength({ min: 1 }).escape().withMessage("You must enter a contact email").isEmail().withMessage("Invalid Email"),  
+  body("first_name").trim().isLength({ min: 1 }).escape().withMessage("You must enter a first name."), 
+  body("family_name").trim().isLength({ min: 1 }).escape().withMessage("You must enter a last name."), 
+  body("date_of_birth", "Invalid date of birth").isISO8601().toDate(),
+ 
+
+  asyncHandler(async (req, res, next) =>{
+    const errors = validationResult(req); 
+    const player = new Player({
+      team: typeof req.body.team === "undefined"? [] : req.body.team, 
+      first_name: req.body.first_name, 
+      family_name: req.body.family_name, 
+      date_of_birth: req.body.date_of_birth, 
+      email: req.body.email, 
+      _id: req.params.id, 
+    }); 
+
+    if(!errors.isEmpty()){
+      const [player, allTeams]= await Promise.all([
+        Player.findById(req.params.id).populate("team").exec(), 
+        Team.find().exec(), 
+      ]); 
+
+      for(const team of allTeams){
+        for (const playerTeam of player.team){
+          if(team._id.toString() === playerTeam._id.toString()){
+            team.checked="true"; 
+          }
+        } 
+      }
+      res.render("player_form", {
+        teams: allTeams, 
+        title: "Invalid Submission Attempt", 
+        player: player, 
+        errors: errors.array(), 
+      }); 
+      return; 
+    }
+    else{
+      const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, player, {}); 
+      res.redirect(updatedPlayer.url); 
+    }
+  }),  
+]; 
