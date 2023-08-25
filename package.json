@@ -11,6 +11,7 @@
     "autoprefixer": "^10.4.15",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.3.1",
     "express": "~4.16.1",
     "express-async-handler": "^1.2.0",
     "express-validator": "^7.0.1",
@@ -19,7 +20,8 @@
     "morgan": "~1.9.1",
     "postcss": "^8.4.28",
     "postcss-cli": "^10.1.0",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "save": "^2.9.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"

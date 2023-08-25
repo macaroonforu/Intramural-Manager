@@ -9,13 +9,14 @@ const usersRouter = require("./routes/users");
 const homeRouter = require("./routes/home"); //Import routes for "home page" of site 
 
 const app = express();
+require('dotenv').config();
 
 
 ///Connect to MongoDB
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-const mongoDB = "";  
+const mongoDB = process.env.MONGODB_URL; 
 
 main().catch((err) => console.log(err));
 async function main() {
