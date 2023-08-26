@@ -14,7 +14,7 @@ exports.index = asyncHandler(async (req, res, next) => {
     Sport.countDocuments({}).exec(), 
   ]); 
   res.render("index", {
-    title: "Intramural Manager Home", 
+    title: "Intramural Manager", 
     team_count: numTeams, 
     player_count: numPlayers, 
     coach_count: numCoaches, 

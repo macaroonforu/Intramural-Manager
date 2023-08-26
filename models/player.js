@@ -1,4 +1,6 @@
 const mongoose = require("mongoose")
+const { DateTime } = require("luxon");
+
 
 const Schema = mongoose.Schema; 
 
@@ -12,7 +14,7 @@ const playerSchema = new Schema({
 playerSchema.virtual("name").get(function (){
     let fullname =""; 
     if ( this.first_name && this.family_name){
-        fullname = `${this.first_name}, ${this.family_name}`; 
+        fullname = `${this.first_name} ${this.family_name}`; 
     }
     return fullname; 
 })
@@ -27,5 +29,11 @@ playerSchema.virtual("update_url").get(function(){
 })
 playerSchema.virtual("delete_url").get(function(){
     return `/home/player/${this._id}/delete`; 
+})
+playerSchema.virtual("dob_formatted").get(function (){
+    return DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED); 
+})
+playerSchema.virtual("dob_form").get(function (){
+    return DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_SHORT); 
 })
 module.exports = mongoose.model("Player", playerSchema); 
