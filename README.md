@@ -1,42 +1,5 @@
-# SPORT-CRUD
-Sport Crud that will be created with Express, MongoDB, and Pug 
+# Intramural Manager
 
-15-Aug-2023
-1. ran express SPORT-CRUD view=pug
-2. modified scripts section in package.json to this: 
-```javascript
-"scripts": {
-    "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www",
-    "serverstart": "DEBUG=SPORT-CRUD:* npm run devstart"
-  }
-```
-3. Changed all vars to const 
-4. npm install mongoose
-5. Created sport, coach, player, and team models (and model folder)
-6. Wrote test script (populateddb) to populate the database and verfied that it was working. 
-7. npm-install express-async-handler
-8. Created sport, coach, player, and team controllers (and controller folder)
-9. Created routes/home.js
-10. Updated index.js to redirect it to home on load 
-11. Update app.js to import home.js as a router and use this router. 
+View at this [Link](https://sport-crud-app-d75a9b88c96f.herokuapp.com)
 
-
-16-Aug-2023
-1. Wrote home.js
-2. Tried to do a responsive nav bar for layout.pug
-
-17-Aug-2023
-1. Wrote views to display lists of coaches, teams, players, and sports. 
-2. modified script because I realized I was missing a name property for team db object. 
-
-18-Aug-2023
-1. Wrote team detail, coach detail, player detail and sport detail views/logic
-2. Put links in to add/delete all objects in respective detail pages. 
-
-22-Aug-2023
-1. npm install express-validator
-2. Added forms to add coaches, players, sports, and teams
-
-23-Aug-2023
-1. Added form to delete a coach
+This is an a imaginary intramural league management system, built with NodeJS, Express, MongoDB, and the PUG templating engine that lets users add/update/delete player/team/coach/sport database objects. 
