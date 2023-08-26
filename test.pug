@@ -1,0 +1,32 @@
+nav.navbar.navbar-expand-lg.bg-light
+  .container-fluid
+    a.navbar-brand(href='#') Navbar
+    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarTogglerDemo02' aria-controls='navbarTogglerDemo02' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarTogglerDemo02.collapse.navbar-collapse
+      ul.navbar-nav.me-auto.mb-2.mb-lg-0
+        li.nav-item
+          a.nav-link.active(aria-current='page' href='#') Home
+        li.nav-item
+          a.nav-link(href='#') Link
+        li.nav-item
+          a.nav-link.disabled Disabled
+      form.d-flex(role='search')
+        input.form-control.me-2(type='search' placeholder='Search' aria-label='Search')
+        button.btn.btn-outline-success(type='submit') Search
+
+   nav(class="navbar navbar-expand-lg bg-blue" style="background-color: #e3f2fd;")
+        div(class="container-fluid")
+            a(href="/home" class="navbar-brand") Intramural Manager
+            button(class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation")
+            span(class="navbar-toggler-icon")
+            div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
+              a(href="/home" class="nav-link active") Home 
+              a(href="/home/coaches" class="nav-link") All Coaches
+              a(href="/home/players" class="nav-link") All Players
+              a(href="/home/teams" class="nav-link") All Teams
+              a(href="/home/sports" class="nav-link") All Sports
+              a(href="/home/coach/create" class="nav-link") Add a Coach
+              a(href="/home/player/create" class="nav-link") Add a Player
+              a(href="/home/team/create" class="nav-link") Add a Team
+              a(href="/home/sport/create" class="nav-link") Add a Sport
