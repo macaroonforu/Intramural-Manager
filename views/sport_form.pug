@@ -3,10 +3,12 @@ extends layout
 block content
   h1 !{title}
 
-  form(method='POST' action='')
-    label(for='name') Sport: 
-    input(type = 'text', maxLength='20' placeholder='Any Team sport!' name='name' value=(undefined===sport ? '' : sport.name))
-    button(type='submit') Submit
+  .container
+    form(method='POST' action='')
+      .form-group
+        label(for='name') Sport: 
+        input.form-control(type = 'text', maxLength='20' placeholder='Any Team sport!' name='name' value=(undefined===sport ? '' : sport.name))
+      button.btn.btn-primary(type='submit') Submit
 
   if errors
    ul

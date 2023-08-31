@@ -1,19 +1,27 @@
 extends layout
 
 block content
-  h1 !{title}
-  h2 Sport: !{sport.name}
-  h3 All !{sport.name} Teams
+  h1 Sport profile for !{sport.name}
 
-  ul
-    each team in sport_teams
-      li
-        p Team:   
-            a(href=team.url) #{team.name} 
-    else
-      li No teams are participating in this sport.   
+  .container 
+    .card 
+      img.card-img-top(src='/images/profile.jpg' alt='...')
 
-    
-  a(href=sport.update_url) Update this sport
-  br  
-  a(href=sport.delete_url) Delete this sport
+      ul.list-group.list-group-flush
+          li.list-group-item 
+            h5.card-title All !{sport.name} Teams
+            ul(class="list-group")
+              each team in sport_teams
+                li(class="list-group-item")
+                  a(href=team.url) #{team.name}
+              else
+                li(class="list-group-item") No teams are participating in this sport.  
+
+
+      .card-body 
+        a.card-link(href=sport.update_url) Update this sport 
+        a.card-link(href=sport.delete_url) Delete this sport
+ 
+
+
+  

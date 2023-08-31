@@ -3,9 +3,10 @@ extends layout
 block content
   h1 !{title}
 
-  ul
-    each coach in coach_list
-      li
-        a(href=coach.url) #{coach.name}
-    else
-      li There are no coaches.  
+  .container
+    ul(class="list-group")
+      each coach in coach_list
+        li(class="list-group-item")
+          a(href=coach.url) #{coach.name}
+      else
+        li There are no coaches.  

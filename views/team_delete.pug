@@ -3,16 +3,18 @@ extends layout
 block content
   h1 !{title}
 
-  if team_players.length 
-    p #[strong Remove these players before attempting to delete this team (!{team.name})]
-    div 
-      h4 Players on the team #{team.name}
-      ul 
-        each player in team_players 
-          li 
-            a(href=player.url) #{player.name}
-  else 
-    p Do you really want to delete this team? (!{team.name})
-    form(method='POST' action='')
-      input(type='hidden', name='teamid', required='true', value=team._id)
-      button(type='submit') Delete 
+  .container
+
+    if team_players.length 
+      p #[strong Remove these players before attempting to delete !{team.name}]
+      div 
+        h4 Players on #{team.name}
+        ul(class="list-group")
+          each player in team_players 
+            li(class="list-group-item")
+              a(href=player.url) #{player.name}
+    else 
+      p Do you really want to remove !{team.name} from the list of teams?
+      form(method='POST' action='')
+        input(type='hidden', name='teamid', required='true', value=team._id)
+        button(type='submit') Delete 

@@ -1,23 +1,28 @@
 extends layout
 
 block content
-  h1 !{title}
-  h2 name: !{coach.name}
-  h3 email:  
-    a(href=coach.mail) !{coach.email}
-  h4 Summary: !{coach.summary}
+  h1 !{coach.name}'s Coach Profile
 
-  h3 !{coach.name}'s Teams 
+  .container
+    div(class="card")
+      img.card-img-top(src='/images/profile.jpg' alt='...')
+      .card-body
+        h5.card-title Summary
+        p.card-text
+          | !{coach.summary}
+      ul.list-group.list-group-flush
+        li.list-group-item Email: 
+          a(href=coach.mail) !{coach.email}
 
-  ul
-    each team in coach_teams
-      li
-          p !{team.sport.name} Team:   
-            a(href=team.url) #{team.name} 
-          
-    else
-      li This coach has no teams.   
+        li.list-group-item My Teams 
+          ul(class="list-group")
+            each team in coach_teams
+              li(class="list-group-item")
+                p !{team.sport.name}:  
+                  a(href=team.url) #{team.name} 
+            else
+              li(class="list-group-item") This coach does not have any teams.
 
-  a(href=coach.update_url) Update this coach
-  br    
-  a(href=coach.delete_url) Delete this coach
+      .card-body
+        a.card-link(href=coach.update_url) Update this coach
+        a.card-link(href=coach.delete_url) Delete this coach

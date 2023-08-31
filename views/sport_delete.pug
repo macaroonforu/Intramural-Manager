@@ -3,20 +3,22 @@ extends layout
 block content
   h1 !{title}
 
-  if sport_teams.length 
+  .container
 
-    p #[strong Remove these teams before attempting to delete this sport (!{sport.name})]
+    if sport_teams.length 
 
-    div 
-      h4 Teams that play #{sport.name}
-      ul 
-        each team in sport_teams 
-          li 
-            a(href=team.url) #{team.name}
+      p #[strong Remove these teams before attempting to delete (!{sport.name})]
 
-  else 
-    p Do you really want to delete this sport? (!{sport.name})
+      div 
+        h4 Teams that play #{sport.name}
+        ul(class="list-group")
+          each team in sport_teams 
+            li(class="list-group-item")
+              a(href=team.url) #{team.name}
 
-    form(method='POST' action='')
-      input(type='hidden', name='sportid', required='true', value=sport._id)
-      button(type='submit') Delete 
+    else 
+      p Do you really want to remove !{sport.name} from the list of sports?
+
+      form(method='POST' action='')
+        input(type='hidden', name='sportid', required='true', value=sport._id)
+        button(type='submit') Delete 

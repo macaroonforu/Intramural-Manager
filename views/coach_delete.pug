@@ -1,25 +1,25 @@
 extends layout
 
 block content
-  h1 #{title}: #{coach.name}
+  h1 !{title}
 
-  if coach_teams.length
-   
+  .container
+    if coach_teams.length
+    
 
-    p #[strong Find a new coach for these teams before attempting to remove this coach.]
+      p #[strong Find a new coach for these teams before attempting to remove this coach.]
 
-    div
-      h4 Teams under #{coach.name}
-      ul 
-        each team in coach_teams
-            li
-                a(href=team.url) #{team.name}
-            
+      div
+        ul(class="list-group")
+          each team in coach_teams
+              li(class="list-group-item")
+                  a(href=team.url) #{team.name}
+              
 
-  else
-    p Do you really want to delete this Coach?
+    else
+      p Do you really want to remove #{coach.name} from the list of coaches? 
 
-    form(method='POST' action='')
+      form(method='POST' action='')
 
-        input(type='hidden',name='coachid', required='true', value=coach._id )
-        button(type='submit') Delete
+          input(type='hidden',name='coachid', required='true', value=coach._id )
+          button(type='submit') Delete

@@ -1,23 +1,36 @@
 extends layout
 
 block content
-  h1 !{title}
-  h2 name: !{player.name}
-  h3 email:  
-    a(href=player.mail) !{player.email}
-  h4 data of birth: !{player.dob_formatted}
+  h1 Player profile for !{player.name}
 
-  h3 !{player.name}'s Teams 
 
-  ul
-    each team in player_teams
-      li
-          p !{team.sport.name} Team:   
-            a(href=team.url) #{team.name} 
+  .container 
+    .card
+      img.card-img-top(src='/images/profile.jpg' alt='...') 
+
+      ul.list-group.list-group-flush
+        li.list-group-item 
+          h5.card-title Name
+            p !{player.name}
+        
+        li.list-group-item 
+          h5.card-title Email 
+            a(href=player.mail) !{player.email}
+        
+        li.list-group-item 
+          h5.card-title Date of Birth 
+            p !{player.dob_formatted}
+
+    
+        li.list-group-item 
+          h5.card-title !{player.name}'s Teams
+          ul(class="list-group")
+            each team in player_teams
+              li(class="list-group-item")
+                a(href=team.url) #{team.name}
+            else
+              li(class="list-group-item") This player does not belong to any teams. 
           
-    else
-      li This player does not belong to any teams. 
-
-  a(href=player.update_url) Update this player
-  br  
-  a(href=player.delete_url) Delete this player   
+      .card-body 
+        a.card-link(href=player.update_url) Update this Player
+        a.card-link(href=player.delete_url) Delete this Player
