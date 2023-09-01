@@ -4,6 +4,14 @@ const Sport = require("../models/sport");
 const Coach = require("../models/coach"); 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const fs = require('fs');
+const path = require('path'); 
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}
 
 // Display list of all teams.
 exports.teamList = asyncHandler(async (req, res, next) => {
@@ -52,12 +60,17 @@ exports.teamCreatePOST = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req); 
+    const __parentDir = path.join(__dirname, '../.');
+    const image_name = req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''); 
+    const base64str = image_name?base64_encode(path.join(__parentDir + `/public/images/${image_name}`)):'';
+    const src = base64str?'data:image;base64,' + base64str:'';
     const team = new Team({
       name: req.body.name, 
       coach: req.body.coach, 
       sport: req.body.sport, 
       size: req.body.size, 
-      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
+      img: src,
+      img_name: image_name, 
     }); 
 
     if(!errors.isEmpty()){
@@ -147,12 +160,17 @@ exports.teamUpdatePOST = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req); 
+    const __parentDir = path.join(__dirname, '../.');
+    const image_name = req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''); 
+    const base64str = image_name?base64_encode(path.join(__parentDir + `/public/images/${image_name}`)):'';
+    const src = base64str?'data:image;base64,' + base64str:'';
     const team = new Team({
       name: req.body.name, 
       coach: req.body.coach, 
       sport: req.body.sport, 
       size: req.body.size, 
-      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''), 
+      img: src, 
+      img_name: image_name, 
       _id: req.params.id, 
     }); 
 

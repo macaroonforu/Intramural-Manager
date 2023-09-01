@@ -4,6 +4,14 @@ const Sport = require("../models/sport");
 const Coach = require("../models/coach"); 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const fs = require('fs');
+const path = require('path'); 
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}
 
 exports.index = asyncHandler(async (req, res, next) => {
   const [numPlayers, numCoaches, numTeams, numSports] = 
@@ -75,13 +83,18 @@ exports.playerCreatePOST = [
 
   asyncHandler(async (req, res, next) =>{
     const errors = validationResult(req); 
+    const __parentDir = path.join(__dirname, '../.');
+    const image_name = req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''); 
+    const base64str = image_name?base64_encode(path.join(__parentDir + `/public/images/${image_name}`)):'';
+    const src = base64str?'data:image;base64,' + base64str:'';
     const player = new Player({
       team: req.body.team, 
       first_name: req.body.first_name, 
       family_name: req.body.family_name, 
       date_of_birth: req.body.date_of_birth, 
       email: req.body.email, 
-      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
+      img: src,
+      img_name: image_name, 
     }); 
 
     if(!errors.isEmpty()){
@@ -173,14 +186,19 @@ exports.playerUpdatePOST = [
  
 
   asyncHandler(async (req, res, next) =>{
-    const errors = validationResult(req); 
+    const errors = validationResult(req);
+    const __parentDir = path.join(__dirname, '../.');
+    const image_name = req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''); 
+    const base64str = image_name?base64_encode(path.join(__parentDir + `/public/images/${image_name}`)):'';
+    const src = base64str?'data:image;base64,' + base64str:''; 
     const player = new Player({
       team: typeof req.body.team === "undefined"? [] : req.body.team, 
       first_name: req.body.first_name, 
       family_name: req.body.family_name, 
       date_of_birth: req.body.date_of_birth, 
       email: req.body.email, 
-      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
+      img: src,
+      img_name: image_name, 
       _id: req.params.id, 
     }); 
 

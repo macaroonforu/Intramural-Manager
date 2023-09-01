@@ -15,8 +15,8 @@ block content
         button.btn(type="button" onClick="document.querySelector('.imglabel').style.display='none';document.querySelector('.form-control-file').style.display='none';document.querySelector('.existing').value='';") Remove Existing Image
       .form-group 
         label(class="imglabel" style="display:none;" for='uploaded_file') Image: 
-        input(style="display:none;" type="file" class="form-control-file" name="uploaded_image")
-        input.form-control(style="display:none;" class="existing" type="text" name="existing_image" value=(undefined===sport?'':sport.img))
+        input(style="display:none;" type="file" class="form-control-file" name="uploaded_image"  accept="image/*")
+        input.form-control(style="display:none;" class="existing" type="text" name="existing_image" value=(undefined===sport?'':sport.img_name))
       button.btn.btn-primary(type='submit') Submit
 
   if errors

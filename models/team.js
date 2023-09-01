@@ -7,6 +7,7 @@ const teamSchema = new Schema({
     coach: { type: Schema.Types.ObjectId, ref: "Coach", required: true }, 
     size: { type: Number, required: true}, 
     img: {type: String, required: false}, 
+    img_name: {type: String, required: false},
 })
 teamSchema.virtual("url").get(function(){
     return `/home/team/${this._id}`; 

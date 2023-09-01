@@ -5,8 +5,8 @@ block content
 
   .container
     div(class="card")
-      if coach.img 
-        img.card-img-top(src=coach.image_path alt='...')
+      if coach.img_name
+        img.card-img-top(src=coach.img alt='...')
       .card-body
         h5.card-title Summary
         p.card-text

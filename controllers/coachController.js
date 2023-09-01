@@ -5,6 +5,14 @@ const Coach = require("../models/coach");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const multer  = require('multer'); 
+const fs = require('fs');
+const path = require('path'); 
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}
 
 // Display list of all coachs.
 exports.coachList = asyncHandler(async (req, res, next) => {
@@ -50,12 +58,17 @@ exports.coachCreatePOST = [
 
 
     const errors = validationResult(req); 
+    const __parentDir = path.join(__dirname, '../.');
+    const image_name = req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''); 
+    const base64str = image_name?base64_encode(path.join(__parentDir + `/public/images/${image_name}`)):'';
+    const src = base64str?'data:image;base64,' + base64str:'';
     const coach = new Coach({
       email: req.body.email, 
       first_name: req.body.first_name, 
       family_name: req.body.family_name, 
       summary: req.body.summary,  
-      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
+      img: src,
+      img_name: image_name, 
     }); 
     if(!errors.isEmpty()){
       res.render("coach_form", {
@@ -132,12 +145,17 @@ exports.coachUpdatePOST = [
 
   asyncHandler(async (req, res, next) =>{
     const errors = validationResult(req); 
+    const __parentDir = path.join(__dirname, '../.');
+    const image_name = req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''); 
+    const base64str = image_name?base64_encode(path.join(__parentDir + `/public/images/${image_name}`)):'';
+    const src = base64str?'data:image;base64,' + base64str:'';
     const coach = new Coach({
       email: req.body.email, 
       first_name: req.body.first_name, 
       family_name: req.body.family_name, 
       summary: req.body.summary, 
-      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
+      img: src,
+      img_name: image_name, 
       _id: req.params.id,  
     }); 
     if(!errors.isEmpty()){

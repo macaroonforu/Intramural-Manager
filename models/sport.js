@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const sportSchema = new Schema({
     name: { type: String, min: 3, max: 20, required: true}, 
     img: {type: String, required: false}, 
+    img_name: {type: String, required: false},
 }); 
 sportSchema.virtual("url").get(function(){
     return `/home/sport/${this._id}`; 

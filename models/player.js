@@ -11,6 +11,7 @@ const playerSchema = new Schema({
     date_of_birth: { type: Date, required: true}, 
     email: { type: String, required: true}, 
     img: {type: String, required: false}, 
+    img_name: {type: String, required: false},
 }); 
 playerSchema.virtual("name").get(function (){
     let fullname =""; 

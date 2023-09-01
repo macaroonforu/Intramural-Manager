@@ -8,6 +8,7 @@ const coachSchema = new Schema({
     email: { type: String, required: true}, 
     summary: {type: String, required: false, maxLength: 400}, 
     img: {type: String, required: false}, 
+    img_name: {type: String, required: false},
 })
 
 coachSchema.virtual("url").get(function(){

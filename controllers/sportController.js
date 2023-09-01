@@ -4,6 +4,18 @@ const Sport = require("../models/sport");
 const Coach = require("../models/coach"); 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const fs = require('fs');
+const path = require('path'); 
+//const { image_data } = require("../test"); 
+
+
+// function to encode file data to base64 encoded string
+function base64_encode(file) {
+    // read binary data
+    var bitmap = fs.readFileSync(file);
+    // convert binary data to base64 encoded string
+    return new Buffer(bitmap).toString('base64');
+}
 
 // Display list of all sports.
 exports.sportList = asyncHandler(async (req, res, next) => {
@@ -122,10 +134,17 @@ exports.sportUpdatePOST = [
   asyncHandler(async (req, res, next) =>{
     //Extract the validation errors from a request. 
     const errors = validationResult(req); 
-    //Create a sport object with the escaped and trimmed data. 
+    const __parentDir = path.join(__dirname, '../.');
+    const image_name = req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''); 
+    const base64str = image_name?base64_encode(path.join(__parentDir + `/public/images/${image_name}`)):'';
+    const src = base64str?'data:image;base64,' + base64str:'';
+
+    //const [src, image_name] = image_data(req); 
+
     const sport = new Sport({
       name: req.body.name, 
-      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
+      img: src,  
+      img_name: image_name,
       _id: req.params.id,
     }); 
     if(!errors.isEmpty()){
