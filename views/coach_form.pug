@@ -4,7 +4,7 @@ block content
   h1 !{title}
 
   .container
-    form(method='POST' action='')
+    form(method='POST' action='' enctype="multipart/form-data")
       .form-group
         label(for='first_name') First Name: 
         input.form-control(type='text' required placeholder='First name' name='first_name' value=(undefined===coach?'':coach.first_name))
@@ -17,6 +17,13 @@ block content
       .form-group
         label(for='email') Email: 
         input.form-control(type='text'  required  name='email' value=(undefined===coach?'':coach.email))
+      .form-group 
+        button.btn(type="button" onClick="document.querySelector('.imglabel').style.display='initial';document.querySelector('.form-control-file').style.display='initial';") Add an Image
+        button.btn(type="button" onClick="document.querySelector('.imglabel').style.display='none';document.querySelector('.form-control-file').style.display='none';document.querySelector('.existing').value='';") Remove Existing Image
+      .form-group 
+        label(class="imglabel" style="display:none;" for='uploaded_file') Image: 
+        input(style="display:none;" type="file" class="form-control-file" name="uploaded_image")
+        input.form-control(style="display:none;" class="existing" type="text" name="existing_image" value=(undefined===coach?'':coach.img))
       
       button.btn.btn-primary(type='submit') Submit
   

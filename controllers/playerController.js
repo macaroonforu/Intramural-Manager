@@ -81,6 +81,7 @@ exports.playerCreatePOST = [
       family_name: req.body.family_name, 
       date_of_birth: req.body.date_of_birth, 
       email: req.body.email, 
+      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
     }); 
 
     if(!errors.isEmpty()){
@@ -179,6 +180,7 @@ exports.playerUpdatePOST = [
       family_name: req.body.family_name, 
       date_of_birth: req.body.date_of_birth, 
       email: req.body.email, 
+      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
       _id: req.params.id, 
     }); 
 

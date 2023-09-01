@@ -57,6 +57,7 @@ exports.teamCreatePOST = [
       coach: req.body.coach, 
       sport: req.body.sport, 
       size: req.body.size, 
+      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
     }); 
 
     if(!errors.isEmpty()){
@@ -151,6 +152,7 @@ exports.teamUpdatePOST = [
       coach: req.body.coach, 
       sport: req.body.sport, 
       size: req.body.size, 
+      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''), 
       _id: req.params.id, 
     }); 
 

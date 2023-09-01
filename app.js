@@ -11,7 +11,6 @@ const homeRouter = require("./routes/home"); //Import routes for "home page" of 
 const app = express();
 require('dotenv').config();
 
-
 ///Connect to MongoDB
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);

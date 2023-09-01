@@ -4,6 +4,7 @@ const Sport = require("../models/sport");
 const Coach = require("../models/coach"); 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const multer  = require('multer'); 
 
 // Display list of all coachs.
 exports.coachList = asyncHandler(async (req, res, next) => {
@@ -34,6 +35,8 @@ exports.coachCreateGET = (req, res, next) => {
   res.render("coach_form", {title: "Add a Coach"}); 
 };
 
+
+
 // Handle coach create on POST.
 exports.coachCreatePOST = [
   body("email").trim().isLength({ min: 1 }).escape().withMessage("You must enter a contact email").isEmail().withMessage("Invalid Email"),  
@@ -41,13 +44,18 @@ exports.coachCreatePOST = [
   body("family_name").trim().isLength({ min: 1 }).escape().withMessage("You must enter a last name."), 
   body("summary").trim().isLength({ min: 1}).escape().withMessage("Please enter a short summary"), 
 
+
   asyncHandler(async (req, res, next) =>{
+    
+
+
     const errors = validationResult(req); 
     const coach = new Coach({
       email: req.body.email, 
       first_name: req.body.first_name, 
       family_name: req.body.family_name, 
       summary: req.body.summary,  
+      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
     }); 
     if(!errors.isEmpty()){
       res.render("coach_form", {
@@ -129,6 +137,7 @@ exports.coachUpdatePOST = [
       first_name: req.body.first_name, 
       family_name: req.body.family_name, 
       summary: req.body.summary, 
+      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
       _id: req.params.id,  
     }); 
     if(!errors.isEmpty()){

@@ -7,6 +7,7 @@ const coachSchema = new Schema({
     family_name: { type: String, required: true, maxLength: 100}, 
     email: { type: String, required: true}, 
     summary: {type: String, required: false, maxLength: 400}, 
+    img: {type: String, required: false}, 
 })
 
 coachSchema.virtual("url").get(function(){
@@ -29,6 +30,9 @@ coachSchema.virtual("update_url").get(function(){
 })
 coachSchema.virtual("delete_url").get(function(){
     return `/home/coach/${this._id}/delete`; 
+})
+coachSchema.virtual("image_path").get(function(){
+    return `/images/${this.img}`
 })
 
 module.exports = mongoose.model("Coach", coachSchema); 

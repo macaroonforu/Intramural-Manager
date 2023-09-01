@@ -43,7 +43,7 @@ exports.sportCreatePOST = [
     //Extract the validation errors from a request. 
     const errors = validationResult(req); 
     //Create a sport object with the escaped and trimmed data. 
-    const sport = new Sport({name: req.body.name }); 
+    const sport = new Sport({name: req.body.name, img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),}); 
     if(!errors.isEmpty()){
       res.render("sport_form", {
         title: "Invalid Submission Attempt", 
@@ -123,24 +123,25 @@ exports.sportUpdatePOST = [
     //Extract the validation errors from a request. 
     const errors = validationResult(req); 
     //Create a sport object with the escaped and trimmed data. 
-    const sport = new Sport({name: req.body.name, _id: req.params.id,}); 
+    const sport = new Sport({
+      name: req.body.name, 
+      img: req.file?req.file.originalname:(req.body.existing_image?req.body.existing_image:''),
+      _id: req.params.id,
+    }); 
     if(!errors.isEmpty()){
       res.render("sport_form", {
         title: "Invalid Submission Attempt, Correct Errors and Try Again", 
         sport: sport, 
         errors: errors.array(), 
       }); 
-      return; 
     }
     else{
-      const sportExists = await Sport.findOne({name: req.body.name}).exec(); 
+      /*const sportExists = await Sport.findOne({name: req.body.name}).exec(); 
       if (sportExists){
         res.redirect(sportExists.url); 
-      }
-      else{
-        const updatedSport = await Coach.findByIdAndUpdate(req.params.id, sport, {}); 
-        res.redirect(updatedSport.url); 
-      }
+      }*/
+      const updatedSport = await Sport.findByIdAndUpdate(req.params.id, sport, {}); 
+      res.redirect(updatedSport.url); 
     }
   }), 
 ]; 

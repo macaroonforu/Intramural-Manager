@@ -5,7 +5,8 @@ block content
 
   .container 
     .card 
-      img.card-img-top(src='/images/profile.jpg' alt='...')
+      if team.img 
+        img.card-img-top(src=team.image_path alt='...')
  
       ul.list-group.list-group-flush
         li.list-group-item 
