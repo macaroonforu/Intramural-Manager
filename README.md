@@ -12,7 +12,7 @@
 ## Description
 This is an a imaginary intramural league management system, built with NodeJS, Express, MongoDB, and the PUG templating language that lets users add/update/delete player/team/coach/sport database objects. 
 
-
-![image](https://github.com/macaroonforu/Intramural-Manager/assets/121368271/68b3bf88-41bf-4e98-8727-87bb8780efa3)
-
+<div  align=center>
+	<img src="https://github.com/macaroonforu/Intramural-Manager/assets/121368271/68b3bf88-41bf-4e98-8727-87bb8780efa3">
+</div>
 
